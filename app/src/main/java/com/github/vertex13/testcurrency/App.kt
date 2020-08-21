@@ -1,6 +1,7 @@
 package com.github.vertex13.testcurrency
 
 import android.app.Application
+import com.github.vertex13.testcurrency.data.dataModule
 import com.github.vertex13.testcurrency.presentation.presentationModule
 import com.github.vertex13.testcurrency.usecases.useCasesModule
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +15,8 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 presentationModule,
-                useCasesModule
+                useCasesModule,
+                dataModule
             )
         }
     }
