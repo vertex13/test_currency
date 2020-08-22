@@ -8,4 +8,10 @@ interface CurrencyPairSubscriptionManager {
 
     suspend fun getSubscribedCurrencyPairs(): List<CurrencyPair>
 
+    fun addSubscribedPairsListener(listener: SubscribedPairsListener)
+
+    fun removeSubscribedPairsListener(listener: SubscribedPairsListener)
+
 }
+
+typealias SubscribedPairsListener = (List<CurrencyPair>) -> Unit

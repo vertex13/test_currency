@@ -5,7 +5,10 @@ import org.koin.dsl.module
 val useCasesModule = module {
     factory { SubscribeToCurrencyPair(get()) }
     factory { UnsubscribeFromCurrencyPair(get()) }
-    factory { SubscribeToQuotesStream(get()) }
-    factory { UnsubscribeFromQuotesStream(get()) }
+    factory { GetSubscribedCurrencyPairs(get()) }
+    factory { TrackSubscribedCurrencyPairs(get()) }
+    factory { UntrackSubscribedCurrencyPairs(get()) }
+    factory { ListenQuotes(get()) }
+    factory { CancelListeningQuotes(get()) }
     factory { GetQuotesHistory(get()) }
 }

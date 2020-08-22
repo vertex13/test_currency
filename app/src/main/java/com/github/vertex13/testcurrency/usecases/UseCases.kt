@@ -18,19 +18,43 @@ class UnsubscribeFromCurrencyPair(
     }
 }
 
-class SubscribeToQuotesStream(
-    private val stream: QuotesStream
+class GetSubscribedCurrencyPairs(
+    private val subscriptionManager: CurrencyPairSubscriptionManager
 ) {
-    suspend operator fun invoke(listener: QuotesStreamListener) {
-        stream.subscribe(listener)
+    suspend operator fun invoke(): List<CurrencyPair> {
+        return subscriptionManager.getSubscribedCurrencyPairs()
     }
 }
 
-class UnsubscribeFromQuotesStream(
+class TrackSubscribedCurrencyPairs(
+    private val subscriptionManager: CurrencyPairSubscriptionManager
+) {
+    operator fun invoke(listener: SubscribedPairsListener) {
+        subscriptionManager.addSubscribedPairsListener(listener)
+    }
+}
+
+class UntrackSubscribedCurrencyPairs(
+    private val subscriptionManager: CurrencyPairSubscriptionManager
+) {
+    operator fun invoke(listener: SubscribedPairsListener) {
+        subscriptionManager.removeSubscribedPairsListener(listener)
+    }
+}
+
+class ListenQuotes(
     private val stream: QuotesStream
 ) {
-    suspend operator fun invoke(listener: QuotesStreamListener) {
-        stream.unsubscribe(listener)
+    operator fun invoke(listener: QuotesStreamListener) {
+        stream.addListener(listener)
+    }
+}
+
+class CancelListeningQuotes(
+    private val stream: QuotesStream
+) {
+    operator fun invoke(listener: QuotesStreamListener) {
+        stream.removeListener(listener)
     }
 }
 
