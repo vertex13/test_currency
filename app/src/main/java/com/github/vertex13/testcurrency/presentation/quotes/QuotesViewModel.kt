@@ -50,7 +50,7 @@ class QuotesViewModel(
             CurrencyPairOrder.ASC ->
                 compareBy<QuoteItem> { it.currencyPair.first }.thenBy { it.currencyPair.second }
             CurrencyPairOrder.DESC ->
-                compareByDescending<QuoteItem> { it.currencyPair.second }.thenByDescending { it.currencyPair.second }
+                compareByDescending<QuoteItem> { it.currencyPair.first }.thenByDescending { it.currencyPair.second }
         }
         items.sortWith(comparator)
     }
