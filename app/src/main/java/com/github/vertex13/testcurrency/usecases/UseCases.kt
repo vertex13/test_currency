@@ -21,7 +21,7 @@ class UnsubscribeFromCurrencyPair(
 class GetSubscribedCurrencyPairs(
     private val subscriptionManager: CurrencyPairSubscriptionManager
 ) {
-    suspend operator fun invoke(): List<CurrencyPair> {
+    suspend operator fun invoke(): Collection<CurrencyPair> {
         return subscriptionManager.getSubscribedCurrencyPairs()
     }
 }

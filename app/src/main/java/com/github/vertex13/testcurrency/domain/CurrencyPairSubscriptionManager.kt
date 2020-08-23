@@ -6,7 +6,7 @@ interface CurrencyPairSubscriptionManager {
 
     suspend fun unsubscribe(currencyPair: CurrencyPair)
 
-    suspend fun getSubscribedCurrencyPairs(): List<CurrencyPair>
+    suspend fun getSubscribedCurrencyPairs(): Collection<CurrencyPair>
 
     fun addSubscribedPairsListener(listener: SubscribedPairsListener)
 
@@ -14,4 +14,4 @@ interface CurrencyPairSubscriptionManager {
 
 }
 
-typealias SubscribedPairsListener = (List<CurrencyPair>) -> Unit
+typealias SubscribedPairsListener = (Collection<CurrencyPair>) -> Unit

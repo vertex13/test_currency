@@ -26,14 +26,14 @@ class QuotesViewModel(
         viewModelScope.launch {
             val pairs = getSubscribedCurrencyPairs()
             onCurrencyPairsUpdated(pairs)
-            listenQuotes(::onNewQuote)
+            listenQuotes(::onNewQuotes)
             trackSubscribedCurrencyPairs(::onCurrencyPairsUpdated)
         }
     }
 
     override fun onCleared() {
         untrackSubscribedCurrencyPairs(::onCurrencyPairsUpdated)
-        cancelListeningQuotes(::onNewQuote)
+        cancelListeningQuotes(::onNewQuotes)
         super.onCleared()
     }
 
@@ -55,19 +55,21 @@ class QuotesViewModel(
         items.sortWith(comparator)
     }
 
-    private fun onNewQuote(quote: Quote) {
+    private fun onNewQuotes(quotes: Collection<Quote>) {
+        val quoteMap = HashMap<CurrencyPair, Quote>(quotes.size)
+        quotes.forEach { quoteMap[it.currencyPair] = it }
         val newItems = _quoteItems.value!!.toMutableList()
         for (i in newItems.indices) {
             val item = newItems[i]
-            if (quote.currencyPair == item.currencyPair) {
+            val quote = quoteMap[item.currencyPair]
+            if (quote != null) {
                 newItems[i] = QuoteItem(item.currencyPair, quote)
-                break
             }
         }
-        _quoteItems.value = newItems
+        _quoteItems.postValue(newItems)
     }
 
-    private fun onCurrencyPairsUpdated(pairs: List<CurrencyPair>) {
+    private fun onCurrencyPairsUpdated(pairs: Collection<CurrencyPair>) {
         val pairSet = pairs.toHashSet()
         val oldItems = _quoteItems.value!!
         val newItems = ArrayList<QuoteItem>(oldItems.size)

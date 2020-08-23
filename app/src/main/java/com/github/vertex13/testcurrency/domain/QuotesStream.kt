@@ -8,4 +8,4 @@ interface QuotesStream {
 
 }
 
-typealias QuotesStreamListener = (Quote) -> Unit
+typealias QuotesStreamListener = (Collection<Quote>) -> Unit
