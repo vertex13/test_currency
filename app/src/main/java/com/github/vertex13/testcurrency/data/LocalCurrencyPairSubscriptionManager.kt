@@ -10,19 +10,20 @@ class LocalCurrencyPairSubscriptionManager(
     private val api: QuotesEccallsApi
 ) : CurrencyPairSubscriptionManager {
 
-    private val subscribedPairs =
-        hashSetOf<CurrencyPair>(CurrencyPair("USD", "EUR"), CurrencyPair("BTC", "USD"))
+    private val subscribedPairs = hashSetOf<CurrencyPair>()
 
     private val listeners = hashSetOf<SubscribedPairsListener>()
 
     override suspend fun subscribe(currencyPair: CurrencyPair) {
         api.subscribe(currencyPair.toDto())
         subscribedPairs.add(currencyPair)
+        notifyListeners()
     }
 
     override suspend fun unsubscribe(currencyPair: CurrencyPair) {
         api.unsubscribe(currencyPair.toDto())
         subscribedPairs.remove(currencyPair)
+        notifyListeners()
     }
 
     override suspend fun getSubscribedCurrencyPairs(): Collection<CurrencyPair> {

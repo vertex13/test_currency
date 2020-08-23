@@ -8,6 +8,7 @@ val useCasesModule = module {
     factory { GetSubscribedCurrencyPairs(get()) }
     factory { TrackSubscribedCurrencyPairs(get()) }
     factory { UntrackSubscribedCurrencyPairs(get()) }
+    factory { GetAllCurrencyPairs(get()) }
     factory { ListenQuotes(get()) }
     factory { CancelListeningQuotes(get()) }
     factory { GetQuotesHistory(get()) }

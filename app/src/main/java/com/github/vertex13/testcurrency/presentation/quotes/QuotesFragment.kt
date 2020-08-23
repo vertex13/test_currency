@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vertex13.testcurrency.R
 import com.github.vertex13.testcurrency.presentation.common.BaseFragment
+import com.github.vertex13.testcurrency.presentation.editpairs.EditCurrencyPairsFragment
 import com.github.vertex13.testcurrency.presentation.quotes.adapter.QuotesAdapter
 import kotlinx.android.synthetic.main.fragment_quotes.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,16 +49,21 @@ class QuotesFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
+            R.id.editCurrencyPairs -> {
+                requireBaseActivity().pushFragment(EditCurrencyPairsFragment.newInstance())
+                true
+            }
             R.id.sortAscent -> {
                 viewModel.sort(CurrencyPairOrder.ASC)
-                return true
+                true
             }
             R.id.sortDescent -> {
                 viewModel.sort(CurrencyPairOrder.DESC)
-                return true
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
+
 }

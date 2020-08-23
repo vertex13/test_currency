@@ -4,9 +4,11 @@
     <string name="quotes_instrument">Instrument</string>
     <string name="quotes_bid_ask">BID / ASK</string>
     <string name="quotes_spread">SPREAD</string>
+    <string name="quotes_menu_edit">Edit currencies</string>
     <string name="quotes_menu_sort_ascent">Sort ascent</string>
     <string name="quotes_menu_sort_descent">Sort descent</string>
     <string name="quote_item_instrument">%s / %s</string>
     <string name="quote_item_bid_ask">%.5f / %.5f</string>
     <string name="quote_item_spread">%.1f</string>
+    <string name="edit_currency_item_title">%s / %s</string>
 </resources>

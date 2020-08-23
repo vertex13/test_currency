@@ -42,6 +42,14 @@ class UntrackSubscribedCurrencyPairs(
     }
 }
 
+class GetAllCurrencyPairs(
+    private val currencyPairRepository: CurrencyPairRepository
+) {
+    suspend operator fun invoke(): List<CurrencyPair> {
+        return currencyPairRepository.getAll()
+    }
+}
+
 class ListenQuotes(
     private val stream: QuotesStream
 ) {
