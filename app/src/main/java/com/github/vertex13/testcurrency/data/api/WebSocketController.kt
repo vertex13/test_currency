@@ -6,6 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.*
 import java.security.cert.X509Certificate
+import java.util.*
 import javax.net.ssl.SSLContext
 import javax.net.ssl.X509TrustManager
 
@@ -21,6 +22,7 @@ class WebSocketController(
     private var webSocket: WebSocket? = null
     private val listener = Listener()
     private var isClosed = false
+    private val messageQueue: Queue<String> = LinkedList()
 
     /**
      * throws [IllegalStateException] if the controller has been closed.
@@ -40,9 +42,11 @@ class WebSocketController(
         isClosed = true
         webSocket?.close(CLOSE_GOING_AWAY_STATUS, null)
         webSocket = null
+        messageQueue.clear()
     }
 
     fun sendMessage(message: String) {
+        messageQueue.offer(message)
         webSocket?.send(message)
     }
 
@@ -70,7 +74,17 @@ class WebSocketController(
             .newWebSocket(request, listener)
     }
 
+    private fun resendMessages() {
+        messageQueue.forEach { message ->
+            webSocket?.send(message)
+        }
+    }
+
     inner class Listener : WebSocketListener() {
+
+        override fun onOpen(webSocket: WebSocket, response: Response) {
+            resendMessages()
+        }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
             onMessageReceived(text)
@@ -95,7 +109,7 @@ class WebSocketController(
 
 }
 
-class EmptyTrustManager : X509TrustManager {
+private class EmptyTrustManager : X509TrustManager {
     override fun checkClientTrusted(p0: Array<out X509Certificate>?, p1: String?) = Unit
 
     override fun checkServerTrusted(p0: Array<out X509Certificate>?, p1: String?) = Unit
