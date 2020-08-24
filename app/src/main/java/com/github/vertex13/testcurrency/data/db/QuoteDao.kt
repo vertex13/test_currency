@@ -10,7 +10,7 @@ interface QuoteDao {
     @Insert
     suspend fun insertAll(quotes: List<QuoteEntity>)
 
-    @Query("SELECT * FROM quote WHERE currencyPair = :currencyPair")
+    @Query("SELECT * FROM quote WHERE currencyPair = :currencyPair ORDER BY timestamp ASC")
     suspend fun getForCurrencyPair(currencyPair: String): List<QuoteEntity>
 
 }

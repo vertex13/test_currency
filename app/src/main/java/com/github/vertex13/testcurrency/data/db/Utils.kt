@@ -13,7 +13,7 @@ fun CurrencyPair.toEntity(isSubscribed: Boolean): CurrencyPairEntity = CurrencyP
 fun CurrencyPairEntity.fromEntity(): CurrencyPair = CurrencyPair(first, second)
 
 fun Quote.toEntity(): QuoteEntity = QuoteEntity(
-    currencyPair.toQuoteTypeString(),
+    currencyPair.toQuoteEntityType(),
     bid,
     ask,
     spread,
@@ -28,7 +28,7 @@ fun QuoteEntity.fromEntity(): Quote = Quote(
     Date(timestamp)
 )
 
-private fun CurrencyPair.toQuoteTypeString(): String = first + second
+fun CurrencyPair.toQuoteEntityType(): String = first + second
 
 private fun String.fromQuoteCurrencyPair(): CurrencyPair {
     val first = substring(0, 3)

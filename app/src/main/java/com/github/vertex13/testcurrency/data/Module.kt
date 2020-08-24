@@ -12,7 +12,7 @@ val dataModule = module {
     single<CurrencyPairRepository> { MockCurrencyPairRepository() }
     single<CurrencyPairSubscriptionManager> { LocalCurrencyPairSubscriptionManager(get(), get()) }
     single<QuotesStream> { QuotesStreamImpl(get(), get(), get()) }
-    single<QuotesRepository> { LocalQuotesRepository() }
+    single<QuotesRepository> { LocalQuotesRepository(get()) }
     single { QuotesEccallsApi() }
     single { AppDatabase.build(get()) }
 }

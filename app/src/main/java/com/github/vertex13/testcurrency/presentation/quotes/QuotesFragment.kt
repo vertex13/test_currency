@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.vertex13.testcurrency.R
+import com.github.vertex13.testcurrency.presentation.chart.QuotesChartFragment
 import com.github.vertex13.testcurrency.presentation.common.BaseFragment
 import com.github.vertex13.testcurrency.presentation.editpairs.EditCurrencyPairsFragment
 import com.github.vertex13.testcurrency.presentation.quotes.adapter.QuotesAdapter
@@ -45,7 +46,7 @@ class QuotesFragment : BaseFragment() {
     }
 
     private fun onItemClick(item: QuoteItem) {
-        //
+        requireBaseActivity().pushFragment(QuotesChartFragment.newInstance(item.currencyPair))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

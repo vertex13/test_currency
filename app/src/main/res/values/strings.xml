@@ -11,4 +11,6 @@
     <string name="quote_item_bid_ask">%.5f / %.5f</string>
     <string name="quote_item_spread">%.1f</string>
     <string name="edit_currency_item_title">%s / %s</string>
+    <string name="quotes_chart_bid_label">BID</string>
+    <string name="quotes_chart_ask_label">ASK</string>
 </resources>
